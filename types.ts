@@ -39,3 +39,24 @@ export interface InterviewExperience {
   rounds: string[];
   tips: string[];
 }
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+  type?: 'github' | 'demo' | 'paper' | 'docs' | 'other';
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  abstract: string;
+  description?: string;
+  year?: string; // e.g. 2023
+  batch?: string; // e.g. "VI Sem"
+  categories: string[]; // e.g. ['Cyber Forensics', 'VAPT']
+  tags?: string[];
+  links?: ProjectLink[];
+  featured?: boolean; // for showcase top projects
+  imageUrl?: string;
+  contributors?: string[];
+}

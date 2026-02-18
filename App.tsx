@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import ChatAssistant from './components/ChatAssistant';
 import { MOCK_CONTENT, MOCK_INTERVIEWS, ROADMAPS } from './constants';
 import { ContentType } from './types';
+import ProjectsPage from './components/ProjectsPage';
 import { 
   Terminal, Shield, BookOpen, Map, Award, Briefcase, 
   ExternalLink, ArrowRight, User, Calendar, Tag, ChevronRight,
@@ -89,12 +90,10 @@ const App: React.FC = () => {
 
       case 'blogs':
       case 'ctf':
-      case 'projects':
       case 'experiments':
         const typeMap: Record<string, ContentType> = {
           'blogs': ContentType.BLOG,
           'ctf': ContentType.CTF,
-          'projects': ContentType.PROJECT,
           'experiments': ContentType.EXPERIMENT
         };
         const filtered = MOCK_CONTENT.filter(c => c.type === typeMap[activeTab]);
@@ -147,6 +146,9 @@ const App: React.FC = () => {
             </div>
           </div>
         );
+
+      case 'projects':
+        return <ProjectsPage />;
 
       case 'roadmaps':
         return (

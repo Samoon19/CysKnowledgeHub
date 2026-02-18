@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <rect width="1200" height="600" fill="#0f172a" />
+  <rect x="40" y="40" width="1120" height="520" rx="18" fill="#071023" stroke="#06b6d4" stroke-opacity="0.12" />
+  <text x="80" y="160" fill="#06b6d4" font-size="36" font-family="sans-serif" font-weight="700">Forensics Project</text>
+  <text x="80" y="220" fill="#9ca3af" font-size="22" font-family="sans-serif">Disk imaging · Timeline analysis · Automated reporting</text>
+</svg>

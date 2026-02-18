@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <rect width="1200" height="600" fill="#0b1220" />
+  <rect x="40" y="40" width="1120" height="520" rx="18" fill="#04101a" stroke="#a78bfa" stroke-opacity="0.12" />
+  <text x="80" y="160" fill="#a78bfa" font-size="36" font-family="sans-serif" font-weight="700">General Sample Project</text>
+  <text x="80" y="220" fill="#9ca3af" font-size="22" font-family="sans-serif">Demo placeholder image</text>
+</svg>
