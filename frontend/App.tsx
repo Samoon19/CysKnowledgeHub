@@ -7,6 +7,7 @@ import { ContentType } from './types';
 import ProjectsPage from './components/ProjectsPage';
 import AchievementsPage from './components/AchievementsPage';
 import CompaniesPage from './components/CompaniesPage';
+import CertificationsPage from "./components/CertificationsPage";
 import {
   Terminal, Shield, BookOpen, Map, Award, Briefcase,
   ExternalLink, ArrowRight, User, Calendar, Tag, ChevronRight,
@@ -157,6 +158,9 @@ const App: React.FC = () => {
 
       case 'companies':
         return <CompaniesPage />;
+
+      case 'certifications':
+        return <CertificationsPage />;
 
       case 'roadmaps':
         return (
