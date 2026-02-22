@@ -1,6 +1,8 @@
 
-import React, { useState } from 'react';
-import { Shield, BookOpen, Map, Award, Terminal, Briefcase, Menu, X, Github, Search, Cpu, Building2 } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Shield, BookOpen, Map, Award, Terminal, Briefcase, Menu, X, Github, UserCircle, LogOut, Cpu, Building2, ChevronDown } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import AuthModal from './AuthModal';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,6 +12,21 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const { user, signOut } = useAuth();
+
+  // Close user-menu on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Shield },
@@ -47,10 +64,53 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
-            <button className="p-2 text-gray-400 hover:text-white transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
+          <div className="flex items-center gap-2">
+            {/* Profile / Auth button */}
+            {user ? (
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setShowUserMenu((v) => !v)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700 transition-colors"
+                >
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt={user.displayName ?? 'avatar'} className="w-6 h-6 rounded-full object-cover" referrerPolicy="no-referrer" />
+                  ) : (
+                    <UserCircle className="w-6 h-6 text-cyan-400" />
+                  )}
+                  <span className="hidden sm:block text-sm font-medium text-gray-200 max-w-[120px] truncate">
+                    {user.displayName ?? user.email}
+                  </span>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Dropdown */}
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-56 bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden z-50">
+                    <div className="px-4 py-3 border-b border-gray-800">
+                      <p className="text-sm font-semibold text-white truncate">{user.displayName ?? 'User'}</p>
+                      <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={async () => { setShowUserMenu(false); await signOut(); }}
+                      className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold transition-colors"
+              >
+                <UserCircle className="w-5 h-5" />
+                Sign In
+              </button>
+            )}
+
+            {/* Mobile hamburger */}
             <button
               className="md:hidden p-2 text-gray-400 hover:text-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -120,6 +180,9 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
           © {new Date().getFullYear()} Department Cybersecurity Hub. Securely built for hackers.
         </div>
       </footer>
+
+      {/* Auth Modal */}
+      {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
     </div>
   );
 };
