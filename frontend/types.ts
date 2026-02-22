@@ -23,10 +23,27 @@ export interface ContentItem {
   imageUrl?: string;
 }
 
+export type TopicType = 'must-know' | 'good-to-know' | 'tools';
+
+export interface TopicGroup {
+  name: string;
+  type: TopicType;
+  items: string[];
+}
+
 export interface RoadmapStep {
   title: string;
   description: string;
   resources: string[];
+  duration?: string;
+  topics?: TopicGroup[];
+}
+
+export interface RoadmapData {
+  id: string;
+  title: string;
+  subtitle: string;
+  steps: RoadmapStep[];
 }
 
 export interface InterviewExperience {
@@ -59,4 +76,30 @@ export interface Project {
   featured?: boolean; // for showcase top projects
   imageUrl?: string;
   contributors?: string[];
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  type: 'Hackathon' | 'CTF' | 'Coding' | 'Other';
+  result: string;
+  students: string[];
+  date: string;
+  description: string;
+  images: string[];
+}
+
+export interface CompanyInfo {
+  id: string;
+  companyName: string;
+  logo: string;
+  industry: string;
+  location: string;
+  website: string;
+  roles: string[];
+  eligibilityCriteria: string;
+  salaryPackage: string;
+  selectionProcess: string[];
+  interviewExperience?: string;
+  notesTips: string;
 }
