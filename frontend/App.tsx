@@ -6,6 +6,7 @@ import { MOCK_CONTENT, MOCK_INTERVIEWS, ROADMAPS } from './constants';
 import { ContentType, RoadmapData } from './types';
 import ProjectsPage from './components/ProjectsPage';
 import AchievementsPage from './components/AchievementsPage';
+import CertificationsPage from "./components/CertificationsPage";
 import CompaniesPage from './components/CompaniesPage';
 import CertificationsPage from './components/CertificationsPage';
 import {
@@ -416,6 +417,9 @@ const App: React.FC = () => {
       case 'companies':
         return <CompaniesPage />;
       
+      case 'certifications':
+        return <CertificationsPage />;
+
       case 'certifications':
         return <CertificationsPage />;
 
